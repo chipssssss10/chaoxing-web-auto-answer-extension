@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "minimum_chrome_version": "114",
+  "name": "学习通 AI 答题助手",
+  "version": "0.2.0",
+  "description": "识别网页选择题，调用自己的 AI 接口作答，支持暂停与可选自动提交。",
+  "permissions": ["storage", "activeTab", "scripting"],
+  "host_permissions": ["https://*.chaoxing.com/*", "http://*.chaoxing.com/*"],
+  "optional_host_permissions": ["https://*/*", "http://localhost/*", "http://127.0.0.1/*"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "action": { "default_popup": "popup.html", "default_title": "学习通 AI 答题助手" },
+  "options_page": "options.html",
+  "content_scripts": [{
+    "matches": ["https://*.chaoxing.com/*", "http://*.chaoxing.com/*", "http://127.0.0.1/demo*"],
+    "js": ["shared.js", "dom.js", "content.js"],
+    "run_at": "document_idle",
+    "all_frames": true,
+    "match_about_blank": true
+  }]
+}

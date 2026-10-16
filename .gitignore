@@ -1,0 +1,12 @@
+.test-output/
+*.zip
+node_modules/
+*.log
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials*.json
+settings.local.json
+.publish/

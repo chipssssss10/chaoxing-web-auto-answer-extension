@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>学习通 AI 助手</title><link rel="stylesheet" href="ui.css"></head>
+<body class="popup">
+  <header><div class="brand">答</div><div><h1>学习通 AI 助手</h1><p>识别 · 解答 · 核验选中状态</p></div></header>
+  <div class="card"><div class="eyebrow">CURRENT TASK</div><p id="status" class="status" role="status">点击扫描，查看识别到的题目。</p><p id="progress" class="muted"></p></div>
+  <div class="row"><button id="scan">扫描当前答题页面</button><button id="scanWrong">扫描错题</button></div>
+  <label for="frame">答题区域</label><select id="frame" disabled><option>请先扫描</option></select>
+  <div id="preview"></div>
+  <section id="confidenceReview" class="card" hidden><h2>AI 自评率汇总</h2><p id="reviewStatus" class="muted"></p><div id="reviewList" class="result-list"></div></section>
+  <div class="row"><button id="single" disabled>只答一道</button><button id="start" class="primary" disabled>连续作答</button></div>
+  <div class="row"><button id="stop" class="danger">停止任务</button><button id="options">接口与自动化设置</button></div>
+  <p id="submitHint" class="muted">默认在最终提交前停下。</p>
+  <section id="wrongReview" class="card" hidden><h2>错题扫描结果</h2><p id="wrongStatus" class="muted" role="status"></p><p id="wrongScope" class="muted"></p><div id="wrongList" class="result-list"></div></section>
+  <p class="muted">错题扫描读取当前已加载页面的批改结果，不调用 AI，也不修改答案。</p>
+  <footer>题干和选项会发送到你配置的 AI 服务。AI 自评置信度不代表正确率。</footer>
+  <script src="popup.js" type="module"></script>
+</body></html>

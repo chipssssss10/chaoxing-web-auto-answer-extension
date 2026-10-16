@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>学习通 AI 助手 · 设置</title><link rel="stylesheet" href="ui.css"></head>
+<body class="options">
+  <header><div class="brand">答</div><div><h1>连接你的 AI，设置作答方式</h1><p>兼容 Chat Completions 接口 · Chrome / Edge 扩展</p></div></header>
+  <form id="settings">
+    <section class="card"><h2>AI 接口</h2>
+      <label for="endpoint">API 完整地址</label><input id="endpoint" type="url" required placeholder="https://api.openai.com/v1/chat/completions">
+      <p class="muted">可填完整地址，或以 /v1 结尾的服务基地址。保存时只申请该 API 域名的访问权限。</p>
+      <div class="grid"><div><label for="model">模型名称</label><input id="model" required placeholder="填写服务商提供的模型 ID" autocomplete="off"></div><div><label for="apiKey">API 密钥</label><input id="apiKey" type="password" required placeholder="仅在此处填写，不要发到聊天中" autocomplete="off"></div></div>
+      <label class="check"><input type="checkbox" id="jsonMode">发送 JSON 模式参数（接口需支持 response_format）</label>
+      <p class="muted">密钥存放在此浏览器的扩展本地存储中，不同步云端；本地存储未加密。网页脚本不接收密钥。题干、选项会发送给上方 API 服务。共享电脑使用后请清除密钥。</p>
+      <div class="row"><button id="test" type="button">测试已保存的接口</button><button id="clearKey" type="button" class="danger">清除已保存密钥</button></div>
+    </section>
+    <section class="card"><h2>自动化行为</h2>
+      <div class="grid"><div><label for="minConfidence">AI 低自评率提醒阈值（%）</label><input id="minConfidence" type="number" min="0" max="100" step="1" required></div><div><label for="delayMs">每题完成后间隔（毫秒）</label><input id="delayMs" type="number" min="300" max="10000" step="100" required></div><div><label for="maxQuestions">每次最多题数（1–500）</label><input id="maxQuestions" type="number" min="1" max="500" step="1" required></div><div><label for="requestTimeoutMs">接口超时（毫秒，最高 25000）</label><input id="requestTimeoutMs" type="number" min="3000" max="25000" step="1000" required></div></div>
+      <p class="muted">例如填 85：低于 85% 时短暂提醒并继续作答，结束后汇总这些题目；没有低于阈值的题目时会明确提示。AI 自评率不是实测正确率，设为 0 可关闭低自评率提醒。</p>
+      <label class="check"><input id="autoSubmit" type="checkbox">选完后自动点击提交，并确认页面内的提交对话框</label>
+      <p class="muted">开启自动提交时请从第一题开始。扩展只能核验本次识别到的题目，无法证明整份试卷没有遗漏。图片题、不支持题型或选中状态异常会暂停。浏览器原生确认框需手动处理。</p>
+    </section>
+    <section class="card"><details><summary>页面适配：自定义 CSS 选择器</summary><p>默认识别常见题块和单选 / 多选控件。如识别不全，可覆盖下列选择器。题干和选项选择器相对于每个题块查找。请先在模拟页或练习中使用“只答一道”核对。</p>
+      <label for="question">题块容器</label><input id="question" placeholder="例如 .TiMu 或 .questionLi">
+      <label for="stem">题干</label><input id="stem" placeholder="例如 .Zy_TItle 或 .mark_name">
+      <label for="option">每个选项的外层元素</label><input id="option" placeholder="例如 .Zy_ulTop > li（应包含原生 radio / checkbox 或可识别选中状态）">
+      <label for="next">下一题按钮</label><input id="next" placeholder="留空按按钮文字查找；例如 #nextQuestion">
+      <label for="submit">最终提交按钮</label><input id="submit" placeholder="留空按按钮文字查找；例如 #submitPaper">
+      <label for="wrong">错题批改标记（可选）</label><input id="wrong" placeholder="例如 .question-wrong 或 [data-correct='false']；只匹配错题批改标记">
+      <p>“扫描错题”只读取当前已加载的题块和批改结果，不调用 AI，不改答案，也不自动翻页。</p>
+    </details></section>
+    <div class="row"><button class="primary" id="save" type="submit">保存设置并授权 API 域名</button><button type="button" id="demo">打开本地模拟页</button></div>
+    <p id="saveStatus" role="status"></p>
+  </form>
+  <footer>版本 0.2.0 · 无远程脚本、无统计上报。模拟页不使用真实账号；真实页面仍需核对适配情况。</footer>
+  <script src="options.js" type="module"></script>
+</body></html>
